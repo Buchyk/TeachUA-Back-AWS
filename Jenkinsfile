@@ -34,7 +34,7 @@ pipeline {
                              sourceFiles: "target/*.war",
                                removePrefix: "target/",
                                remoteDirectory: "/home/ec2-user/teachua/www/back",
-                                execCommand: "sudo mv /home/ec2-user/teachua/www/back/TeachUA-1.0.war  /home/ec2-user/teachua/www/back/dev.war"
+                       //         execCommand: "sudo mv /home/ec2-user/teachua/www/back/TeachUA-1.0.war  /home/ec2-user/teachua/www/back/dev.war"
                 )
           ])
       ])
