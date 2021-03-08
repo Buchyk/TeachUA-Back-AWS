@@ -21,5 +21,24 @@ pipeline {
                 sh 'tar czf app-${BUILD_NUMBER}.tar.gz target/*.war' 
             }
         }
+        stage('SSH transfer') {
+ script {
+  sshPublisher(
+   continueOnError: false, failOnError: true,
+   publishers: [
+    sshPublisherDesc(
+     configName: "ec2-user@3.64.250.181",
+     verbose: true,
+     transfers: [
+      sshTransfer(
+       sourceFiles: "target/*.war",
+       removePrefix: "target/",
+       remoteDirectory: "/home/ec2-user/teachua/www/back",
+       execCommand: "sudo mv /home/ec2-user/teachua/www/back/TeachUA-1.0.war  /home/ec2-user/teachua/www/back/dev.war"
+      )
+     ])
+   ])
+ }
+}
      }
  }
