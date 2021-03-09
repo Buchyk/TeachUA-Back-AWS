@@ -18,13 +18,12 @@ pipeline {
             steps {
                 echo 'Running build automation'
                 sh 'mvn clean package'
-                sh 'tar czf app-${BUILD_NUMBER}.tar.gz target/*.war' 
             }
         }
          stage('Archive our project') { 
             steps {
                 echo 'Archive our project'
-                sh 'tar czf app-${BUILD_NUMBER}.tar.gz target/*.war' 
+                sh 'tar czf app-${BUILD_NUMBER}.tar.gz ${SOURCE_BACK_FILE}' 
             }
         }
         
@@ -35,12 +34,12 @@ pipeline {
                     continueOnError: false, failOnError: true,
                        publishers: [
                        sshPublisherDesc(
-                        configName: "ec2-user@3.64.250.181",
+                           configName: "${DESTINATION_SERVER}",
                          verbose: true,
                            transfers: [
                              sshTransfer(
                              sourceFiles: "app-${BUILD_NUMBER}.tar.gz",
-                               remoteDirectory: "/home/ec2-user/mount/back",
+                                 remoteDirectory: "${SAVE_ARCHIVE_BACK}",
                          )
                      ])
                  ])
@@ -52,14 +51,14 @@ pipeline {
                     continueOnError: false, failOnError: true,
                        publishers: [
                        sshPublisherDesc(
-                        configName: "ec2-user@3.64.250.181",
+                           configName: "${DESTINATION_SERVER}",
                          verbose: true,
                            transfers: [
                              sshTransfer(
-                             sourceFiles: "target/*.war",
-                               removePrefix: "target/",
-                               remoteDirectory: "/home/ec2-user/teachua/www/back",
-                               execCommand: "sudo mv /home/ec2-user/teachua/www/back/TeachUA-1.0.war  /home/ec2-user/teachua/www/back/dev.war"
+                                 sourceFiles: "${SOURCE_BACK_FILE}",
+                                 removePrefix: "${BACK_PREFICS}",
+                                 remoteDirectory: "${REMOTE_WEBDIR_BACK}",
+                                 execCommand: "sudo mv ${RENAME_FROM}  ${RENAME_TO}"
                         )
                    ])
                ])
