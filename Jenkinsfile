@@ -39,13 +39,13 @@ pipeline {
         stage('Build docker image for App') {
             steps{
                  echo " ============== docker build =================="
-                 sh 'docker build -t backend/:${SOURCE_BACK_FILE}'
+                 sh 'docker build -t backend/:${BUILD_NUMBER}'
             }
         }
         stage("Docker Push") {
             steps {
                 echo " ============== start pushing image =================="
-                sh ' docker push backend/${SOURCE_BACK_FILE} '
+                sh ' docker push backend/:${BUILD_NUMBER} '
             }
         }
         
