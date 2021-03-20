@@ -45,7 +45,7 @@ pipeline {
         stage("Docker Push") {
             steps {
                 echo " ============== start pushing image =================="
-                sh ' docker push backend/backend:${params.TAG} '
+                sh ' docker push buchyk/backend:${params.TAG} '
             }
         }
         
