@@ -39,7 +39,8 @@ pipeline {
         stage('Build docker image for App') {
             steps{
                  echo " ============== docker build =================="
-                 sh 'docker build -t buchyk/backend:${params.TAG} .'
+                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                 //sh 'docker build -t buchyk/backend:${params.TAG} .'
             }
         }
         stage("Docker Push") {
