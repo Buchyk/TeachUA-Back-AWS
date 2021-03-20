@@ -8,6 +8,12 @@ pipeline {
     }
    
     stages {
+	    stage('Clean Workspace') { 
+            steps {
+                echo 'Clean workspace'
+                cleanWS()
+            }
+        }
         stage('Test') { 
             steps {
                 echo 'Running automation test'
@@ -45,7 +51,7 @@ pipeline {
         stage("Docker Push") {
             steps {
                 echo " ============== start pushing image =================="
-                sh 'docker push buchyk/backend:${params.TAG}'
+                sh 'docker push buchyk/backend:${BUILD_NUMBER}'
             }
         }
         
