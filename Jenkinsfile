@@ -9,12 +9,12 @@ pipeline {
    
     stages {
 	
-	stage('Clean Workspace') { 
-            steps {
-                echo 'Clean workspace'
-                cleanWS()
-            }
-        }
+//	stage('Clean Workspace') { 
+//            steps {
+//               echo 'Clean workspace'
+//                cleanWS()
+//            }
+//        }
         stage('Test') { 
             steps {
                 echo 'Running automation test'
