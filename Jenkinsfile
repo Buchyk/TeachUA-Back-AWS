@@ -32,20 +32,20 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker_creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     
 	         echo " ============== docker login =================="
-                 sh ' docker login -u $USERNAME -p $PASSWORD '
+                 sh 'docker login -u $USERNAME -p $PASSWORD'
                 }
             }
         }
         stage('Build docker image for App') {
             steps{
                  echo " ============== docker build =================="
-                 sh 'docker build -t buchyk/backend:${params.TAG}'
+                 sh 'docker build -t buchyk/backend:${params.TAG} .'
             }
         }
         stage("Docker Push") {
             steps {
                 echo " ============== start pushing image =================="
-                sh ' docker push buchyk/backend:${params.TAG} '
+                sh 'docker push buchyk/backend:${params.TAG}'
             }
         }
         
