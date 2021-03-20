@@ -8,7 +8,8 @@ pipeline {
     }
    
     stages {
-	    stage('Clean Workspace') { 
+	
+	stage('Clean Workspace') { 
             steps {
                 echo 'Clean workspace'
                 cleanWS()
